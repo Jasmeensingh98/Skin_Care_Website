@@ -3,30 +3,33 @@ import dotenv from "dotenv";
 dotenv.config();
 
 function createTransporter(config) {
-  const transporter = nodemailer.createTransport(config);
-  return transporter;
+  return nodemailer.createTransport(config);
 }
 
 let configurations = {
   service: "gmail",
   host: "smtp.gmail.com",
   port: 587,
-  requireTls: true,
+  secure: false, // use TLS
+  requireTLS: true,
   auth: {
     user: process.env.EMAIL,
-    password: process.env.PASSWORD,
+    pass: process.env.PASSWORD, // ✅ correct key
   },
 };
 
 const sendMail = async (messageoption) => {
-  const transporter = await createTransporter(configurations);
-  await transporter.verify();
-  await transporter.sendMail(messageoption, (error, info) => {
-    if (error) {
-      console.log(error);
-    }
-    console.log(info.response);
-  });
+  try {
+    const transporter = createTransporter(configurations);
+
+    await transporter.verify();
+    console.log("SMTP server is ready to take messages");
+
+    await transporter.sendMail(messageoption);
+    console.log("Email sent successfully!");
+  } catch (error) {
+    console.error("Error sending email:", error);
+  }
 };
 
 export default sendMail;
