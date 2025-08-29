@@ -1,16 +1,15 @@
-import ejs from "ejs";
 import dotenv from "dotenv";
 import sendMail from "../helpers/sendMail.js";
 import Order from "../models/order.model.js";
 
 dotenv.config();
 
-const sendPendingOrderEmail = async () => {
-  const orders = await Order.find({ status: 0 });
+const sendPendingEmail = async () => {
+  const orders = await Order.find({ status: 2 });
   if (orders.length > 0) {
     for (let order of orders) {
       ejs.renderFile(
-        "templates/pendingorder.ejs",
+        "templates/deliveredorder.ejs",
         {
           name: order.name,
           products: order.products,
@@ -19,12 +18,12 @@ const sendPendingOrderEmail = async () => {
           let messageoptions = {
             from: process.env.EMAIL,
             to: orders.email,
-            subject: "Your Order has been placed",
+            subject: "Your Order has been delivered.",
             html: data,
           };
           try {
             await sendMail(messageoptions);
-              await order.findByIdAndUpdate(order._id, { $set: { status: 1 } });
+              await order.findByIdAndUpdate(order._id, { $set: { status: 3 } });
           } catch (error) {
             console.log(error);
           }
@@ -35,4 +34,4 @@ const sendPendingOrderEmail = async () => {
 };
 
 
-export default sendPendingOrderEmail;
+export default sendDeliveredOrderEmail;
