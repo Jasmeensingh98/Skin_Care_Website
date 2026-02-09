@@ -3,11 +3,13 @@
   "version": "1.0.0",
   "type": "module",
   "main": "index.js",
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "node index.js",
-    "dev": "node --watch index.js"
-  },
+"scripts": {
+  "test": "echo \"Error: no test specified\" && exit 1",
+  "start": "node index.js",
+  "dev": "node --watch index.js",
+  "build": "echo \"No build step required\""
+}
+,
   "keywords": [],
   "author": "",
   "license": "ISC",
