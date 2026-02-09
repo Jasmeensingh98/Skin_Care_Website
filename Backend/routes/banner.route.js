@@ -6,6 +6,9 @@ import{createBanner,getAllBanners,getRandomBanner,deleteBanner} from "../control
 //create banner route
 router.post("/",createBanner);
 
+//get random banners 
+router.get("/random",getRandomBanner);
+
 //get all banners
 
 router.get("/",getAllBanners);
@@ -13,10 +16,5 @@ router.get("/",getAllBanners);
 //delete all banners
 
 router.delete("/:id",deleteBanner);
-
-//get random banners 
-router.get("/random",getRandomBanner);
-
-
 
 export default router;

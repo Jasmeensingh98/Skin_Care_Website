@@ -16,7 +16,7 @@ router.put("/rating/:productId", ratingProduct);
 router.get("/", getAllproducts);
 // get one product
 
-router.get("/find:id", getProduct);
+router.get("/:id", getProduct);
 
 //create product
 router.post("/", createProduct);

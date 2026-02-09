@@ -3,14 +3,14 @@ import asyncHandler from "express-async-handler";
 
 //create  product
 
-const createProduct = asyncHandler(async () => {
-  const newProduct = await Product(req.body);
-  const product = newProduct.save();
+const createProduct = asyncHandler(async (req, res) => {
+  const newProduct = new Product(req.body);
+  const product = await newProduct.save();
 
   if (product) {
-    resize.status(201).json(product);
+    res.status(201).json(product);
   } else {
-    resizeBy.status(400);
+    res.status(400);
     throw new Error("Product was not created");
   }
 });
@@ -25,7 +25,7 @@ const updateProduct = asyncHandler(async (req, res) => {
     },
     { new: true }
   );
-  if (!updateProduct) {
+  if (!updatedProduct) {
     res.status(400);
     throw new Error("Product has not being updated");
   } else {
@@ -63,23 +63,50 @@ const getAllproducts = asyncHandler(async (req, res) => {
   const qnew = req.query.new;
   const qcategory = req.query.category;
   const qsearch = req.query.search;
-  let products;
-  if (qnew) {
-    products = await Product.find().sort({ createdAt: -1 });
-  } else if (qcategory) {
-    products = await Product.find({ categories: { $in: [qcategory] } });
-  } else if (qsearch) {
-    products = await Product.find({
-      $text: {
-        $search: qsearch,
-        $caseSensitive: false,
-        $diacriticSensitive: false,
-      },
-    });
-  } else {
-    products = await Product.find().sort({ createdAt: -1 });
-    res.status(200).json(products);
+  const qskintype = req.query.skintype;
+  const qconcern = req.query.concern;
+
+  const normalizeList = (value) => {
+    if (Array.isArray(value)) return value.filter(Boolean);
+    if (typeof value === "string") {
+      return value
+        .split(",")
+        .map((item) => item.trim())
+        .filter(Boolean);
+    }
+    return [];
+  };
+
+  const filter = {};
+  const categoryList = normalizeList(qcategory);
+  const skinTypeList = normalizeList(qskintype);
+  const concernList = normalizeList(qconcern);
+
+  if (categoryList.length > 0) {
+    filter.categories = { $in: categoryList };
   }
+
+  if (skinTypeList.length > 0) {
+    filter.skintype = { $in: skinTypeList };
+  }
+
+  if (concernList.length > 0) {
+    filter.concern = { $in: concernList };
+  }
+
+  if (qsearch) {
+    filter.$text = {
+      $search: qsearch,
+      $caseSensitive: false,
+      $diacriticSensitive: false,
+    };
+  }
+
+  const products = await Product.find(filter).sort({
+    createdAt: qnew ? -1 : -1,
+  });
+
+  res.status(200).json(products);
 });
 
 //--------------------------------------------------//
@@ -88,8 +115,8 @@ const getAllproducts = asyncHandler(async (req, res) => {
 const ratingProduct = asyncHandler(async (req, res) => {
   const { star, name, comment, postedBy } = req.body;
   if (star && name && comment && postedBy) {
-    const postedBy = await Product.findByIdAndUpdate(
-      req.params.id,
+    const product = await Product.findByIdAndUpdate(
+      req.params.productId,
       {
         $push: { ratings: { star, name, comment, postedBy } },
       },
@@ -97,7 +124,7 @@ const ratingProduct = asyncHandler(async (req, res) => {
         new: true,
       }
     );
-    res.status(201).json("product was rated successfully");
+    res.status(201).json(product);
   }
   else{
     res.status(400);

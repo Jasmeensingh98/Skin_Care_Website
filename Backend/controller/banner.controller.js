@@ -1,4 +1,4 @@
-import  Banner from "../models/banner.model.js";
+import Banner from "../models/banner.model.js";
 import asyncHandler from "express-async-handler";
 
 
@@ -6,7 +6,7 @@ import asyncHandler from "express-async-handler";
 
 const createBanner = asyncHandler(async(req,res)=>{
     const banner = new Banner(req.body);
-    const savedBanner = newBanner.save();
+    const savedBanner = await banner.save();
 
     if(!savedBanner){
         res.status(400);
@@ -21,7 +21,7 @@ const createBanner = asyncHandler(async(req,res)=>{
 //delete banner
 
 const deleteBanner = asyncHandler(async(req,res)=>{
-    const banner = await Banner.findByIdDelete(req.params.id);
+    const banner = await Banner.findByIdAndDelete(req.params.id);
     if(!banner){
         res.status(400);
      throw new Error("banner was not deleted ");

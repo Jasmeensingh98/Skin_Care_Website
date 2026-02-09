@@ -1,0 +1,64 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+.container {
+  @apply max-w-7xl mx-auto px-4 sm:px-6 lg:px-8;
+}
+
+.btn-primary {
+  @apply bg-[#c45c3e] hover:bg-[#a84d32] text-white py-2 px-4 rounded-lg transition duration-200;
+}
+
+.btn-secondary {
+  @apply border-2 border-[#c45c3e] text-[#c45c3e] hover:bg-[#c45c3e] hover:text-white py-2 px-4 rounded-lg transition duration-200;
+}
+
+.btn-outline {
+  @apply border border-gray-300 text-gray-700 hover:border-[#c45c3e] hover:text-[#c45c3e] py-2 px-4 rounded-lg transition duration-200;
+}
+
+.input-field {
+  @apply w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:border-[#c45c3e] transition;
+}
+
+.card {
+  @apply bg-white rounded-lg shadow-md hover:shadow-lg transition duration-200;
+}
+
+.badge-success {
+  @apply bg-green-100 text-green-800 px-3 py-1 rounded-full text-sm;
+}
+
+.badge-warning {
+  @apply bg-yellow-100 text-yellow-800 px-3 py-1 rounded-full text-sm;
+}
+
+.badge-error {
+  @apply bg-red-100 text-red-800 px-3 py-1 rounded-full text-sm;
+}
+
+@keyframes soft-pulse {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.92; }
+}
+
+.animate-soft-pulse {
+  animation: soft-pulse 2.5s ease-in-out infinite;
+}

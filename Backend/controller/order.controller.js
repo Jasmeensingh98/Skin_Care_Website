@@ -1,16 +1,16 @@
-import Order from "../models/banner.model.js";
+import Order from "../models/order.model.js";
 import asyncHandler from "express-async-handler";
 
 //create order
 
 const createOrder = asyncHandler(async (req, res) => {
-  const newOrder = Order(req.body);
+  const newOrder = new Order(req.body);
   const savedOrder = await newOrder.save();
   if (!savedOrder) {
     res.status(400);
     throw new Error("Order was not created");
   } else {
-    res.status(201).json(saveOrder);
+    res.status(201).json(savedOrder);
   }
 });
 
