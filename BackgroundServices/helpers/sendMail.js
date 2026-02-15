@@ -6,6 +6,7 @@ function createTransporter(config) {
   return nodemailer.createTransport(config);
 }
 
+
 let configurations = {
   service: "gmail",
   host: "smtp.gmail.com",
