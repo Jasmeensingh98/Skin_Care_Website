@@ -6,15 +6,13 @@ export default {
   theme: {
     extend: {
       colors: {
-        primary: '#c45c3e',
-        foxtale: {
-          coral: '#c45c3e',
-          dark: '#2d2d2d',
-          cream: '#faf9f7',
-        },
+        primary: '#ec4899',
+        secondary: '#f97316',
+        dark: '#1f2937',
+        light: '#f9fafb',
       },
       fontFamily: {
-        sans: ['Inter', 'Segoe UI', 'system-ui', 'sans-serif'],
+        sans: ['Segoe UI', 'Tahoma', 'Geneva', 'Verdana', 'sans-serif'],
       },
     },
   },

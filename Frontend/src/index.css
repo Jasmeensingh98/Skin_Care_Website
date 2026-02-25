@@ -23,19 +23,19 @@ html {
 }
 
 .btn-primary {
-  @apply bg-[#c45c3e] hover:bg-[#a84d32] text-white py-2 px-4 rounded-lg transition duration-200;
+  @apply bg-pink-600 hover:bg-pink-700 text-white py-2 px-4 rounded-lg transition duration-200;
 }
 
 .btn-secondary {
-  @apply border-2 border-[#c45c3e] text-[#c45c3e] hover:bg-[#c45c3e] hover:text-white py-2 px-4 rounded-lg transition duration-200;
+  @apply border border-pink-600 text-pink-600 hover:bg-pink-50 py-2 px-4 rounded-lg transition duration-200;
 }
 
 .btn-outline {
-  @apply border border-gray-300 text-gray-700 hover:border-[#c45c3e] hover:text-[#c45c3e] py-2 px-4 rounded-lg transition duration-200;
+  @apply border border-gray-300 text-gray-700 hover:border-pink-600 hover:text-pink-600 py-2 px-4 rounded-lg transition duration-200;
 }
 
 .input-field {
-  @apply w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:border-[#c45c3e] transition;
+  @apply w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:border-pink-600 transition;
 }
 
 .card {
@@ -52,13 +52,4 @@ html {
 
 .badge-error {
   @apply bg-red-100 text-red-800 px-3 py-1 rounded-full text-sm;
-}
-
-@keyframes soft-pulse {
-  0%, 100% { opacity: 1; }
-  50% { opacity: 0.92; }
-}
-
-.animate-soft-pulse {
-  animation: soft-pulse 2.5s ease-in-out infinite;
 }

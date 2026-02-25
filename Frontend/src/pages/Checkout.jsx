@@ -71,8 +71,10 @@ export default function Checkout() {
         orderId,
       })
 
+      const paymentConfigResponse = await paymentAPI.getPaymentConfig()
+
       // Initialize Razorpay
-      const razorpayKey = import.meta.env.VITE_RAZORPAY_KEY_ID
+      const razorpayKey = paymentConfigResponse.data?.key || import.meta.env.VITE_RAZORPAY_KEY_ID
 
       if (!razorpayKey) {
         toast.error('Payment key missing. Please configure VITE_RAZORPAY_KEY_ID.')
@@ -81,8 +83,8 @@ export default function Checkout() {
 
       const options = {
         key: razorpayKey,
-        amount: total * 100,
-        currency: 'INR',
+        amount: paymentResponse.data.amount,
+        currency: paymentResponse.data.currency || 'INR',
         name: 'VULPINE',
         description: 'Premium Skincare Products',
         order_id: paymentResponse.data.orderId,
@@ -127,7 +129,8 @@ export default function Checkout() {
       })
       razorpay.open()
     } catch (error) {
-      toast.error(error.response?.data?.message || 'Checkout failed')
+      const message = error.response?.data?.details || error.response?.data?.message || 'Checkout failed'
+      toast.error(message)
     } finally {
       setIsLoading(false)
     }
