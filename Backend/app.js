@@ -22,7 +22,16 @@ app.use(express.json());
 //cookie parser
 app.use(cookieParser());
 //cors
-const allowedOrigins = ["http://localhost:3000", "http://localhost:3001"];
+const envAllowedOrigins = (process.env.CORS_ORIGIN || "")
+	.split(",")
+	.map((origin) => origin.trim())
+	.filter(Boolean);
+
+const allowedOrigins = [
+	"http://localhost:3000",
+	"http://localhost:3001",
+	...envAllowedOrigins,
+];
 
 app.use(cors({
 	origin: (origin, callback) => {
