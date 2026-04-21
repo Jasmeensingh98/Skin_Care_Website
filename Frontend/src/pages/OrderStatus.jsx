@@ -34,7 +34,7 @@ export default function OrderStatus() {
   if (isLoading) {
     return (
       <div className="flex justify-center py-12">
-        <div className="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-[#c45c3e]"></div>
+        <div className="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-pink-600"></div>
       </div>
     )
   }
@@ -72,13 +72,13 @@ export default function OrderStatus() {
                     <div key={step.id} className="flex items-start">
                       <div className="flex flex-col items-center mr-6">
                         <div className={`w-12 h-12 rounded-full flex items-center justify-center ${
-                          isActive ? 'bg-[#c45c3e] text-white' : 'bg-gray-200 text-gray-600'
+                          isActive ? 'bg-pink-600 text-white' : 'bg-gray-200 text-gray-600'
                         }`}>
                           <Icon size={24} />
                         </div>
                         {idx < statusSteps.length - 1 && (
                           <div className={`w-1 h-12 my-2 ${
-                            order.status > step.id ? 'bg-[#c45c3e]' : 'bg-gray-300'
+                            order.status > step.id ? 'bg-pink-600' : 'bg-gray-300'
                           }`}></div>
                         )}
                       </div>
@@ -110,7 +110,7 @@ export default function OrderStatus() {
                     <div className="flex-1">
                       <h3 className="font-semibold">{product.title}</h3>
                       <p className="text-sm text-gray-600">Qty: {product.quantity}</p>
-                      <p className="font-semibold text-[#c45c3e] mt-1">
+                      <p className="font-semibold text-pink-600 mt-1">
                         ₹{((product.discountedPrice || product.originalNumber) * product.quantity).toFixed(0)}
                       </p>
                     </div>
@@ -160,15 +160,15 @@ export default function OrderStatus() {
               <div className="space-y-3">
                 <h3 className="font-semibold mb-3">Delivery Address</h3>
                 <div className="flex gap-2">
-                  <MapPin size={20} className="text-[#c45c3e] flex-shrink-0 mt-0.5" />
+                  <MapPin size={20} className="text-pink-600 flex-shrink-0 mt-0.5" />
                   <p className="text-sm text-gray-700">{order.address}</p>
                 </div>
                 <div className="flex gap-2">
-                  <Phone size={20} className="text-[#c45c3e] flex-shrink-0 mt-0.5" />
+                  <Phone size={20} className="text-pink-600 flex-shrink-0 mt-0.5" />
                   <p className="text-sm text-gray-700">{order.phone}</p>
                 </div>
                 <div className="flex gap-2">
-                  <Mail size={20} className="text-[#c45c3e] flex-shrink-0 mt-0.5" />
+                  <Mail size={20} className="text-pink-600 flex-shrink-0 mt-0.5" />
                   <p className="text-sm text-gray-700">{order.email}</p>
                 </div>
               </div>

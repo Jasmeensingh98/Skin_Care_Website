@@ -47,28 +47,28 @@ export default function Dashboard() {
           {/* Quick Stats */}
           <div className="bg-white rounded-lg shadow p-6">
             <div className="text-center">
-              <div className="text-3xl font-bold text-[#c45c3e] mb-2">0</div>
+              <div className="text-3xl font-bold text-pink-600 mb-2">0</div>
               <p className="text-gray-600">Total Orders</p>
             </div>
           </div>
 
           <div className="bg-white rounded-lg shadow p-6">
             <div className="text-center">
-              <div className="text-3xl font-bold text-[#c45c3e] mb-2">₹0</div>
+              <div className="text-3xl font-bold text-pink-600 mb-2">₹0</div>
               <p className="text-gray-600">Total Spent</p>
             </div>
           </div>
 
           <div className="bg-white rounded-lg shadow p-6">
             <div className="text-center">
-              <div className="text-3xl font-bold text-[#c45c3e] mb-2">0</div>
+              <div className="text-3xl font-bold text-pink-600 mb-2">0</div>
               <p className="text-gray-600">Wishlist Items</p>
             </div>
           </div>
 
           <div className="bg-white rounded-lg shadow p-6">
             <div className="text-center">
-              <div className="text-3xl font-bold text-[#c45c3e] mb-2">0</div>
+              <div className="text-3xl font-bold text-pink-600 mb-2">0</div>
               <p className="text-gray-600">Cart Items</p>
             </div>
           </div>
