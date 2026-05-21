@@ -76,6 +76,12 @@ app.use("/api/skin", skinRoute);
 app.use("/api/skin", skinReportRoute);
 app.use("/api/appointments", appointmentRoute);
 
+app.get("/", (req, res) => {
+	res.status(200).json({
+		message: "skin_analysis API is running",
+	});
+});
+
 app.get("/api/auth/me", protect, getMe);
 app.post("/api/skin/reports", protect, upload.single("image"), createSkinReport);
 app.get("/api/skin/reports/my", protect, getMyReports);
