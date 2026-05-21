@@ -47,8 +47,8 @@ export default function Register() {
         phone: formData.phone,
       })
       setUser(response.data)
-      toast.success('Account created successfully!')
-      navigate('/')
+      toast.success('Account created! You are signed in.')
+      navigate('/dashboard')
     } catch (error) {
       toast.error(error.response?.data?.message || 'Registration failed')
     } finally {

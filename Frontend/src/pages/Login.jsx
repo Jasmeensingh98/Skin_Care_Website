@@ -28,8 +28,16 @@ export default function Login() {
     try {
       const response = await authAPI.login(formData)
       setUser(response.data)
-      toast.success('Logged in successfully!')
-      navigate('/')
+      toast.success('Welcome back!')
+      if (
+        response.data.role === 'dermatologist' ||
+        response.data.role === 'admin' ||
+        response.data.email === 'derm@vulpine.com'
+      ) {
+        navigate('/dermatologist')
+      } else {
+        navigate('/dashboard')
+      }
     } catch (error) {
       toast.error(error.response?.data?.message || 'Login failed')
     } finally {

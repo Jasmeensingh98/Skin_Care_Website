@@ -1,4 +1,4 @@
-# VULPINE - Premium Skincare E-commerce Platform
+# skin_analysis - Premium Skincare E-commerce Platform
 
 A modern, fully-functional e-commerce platform for premium skincare products featuring user authentication, product catalog, shopping cart, payment integration with Razorpay, order tracking, and email notifications.
 

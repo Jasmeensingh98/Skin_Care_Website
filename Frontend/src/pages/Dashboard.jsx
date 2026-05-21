@@ -1,6 +1,8 @@
 import { useNavigate, Link } from 'react-router-dom'
 import { useStore } from '../store/store'
+import { authAPI } from '../services/api'
 import { ShoppingCart } from 'lucide-react'
+import toast from 'react-hot-toast'
 
 export default function Dashboard() {
   const navigate = useNavigate()
@@ -19,8 +21,14 @@ export default function Dashboard() {
     )
   }
 
-  const handleLogout = () => {
+  const handleLogout = async () => {
+    try {
+      await authAPI.logout()
+    } catch {
+      // still clear local state
+    }
     logout()
+    toast.success('Logged out')
     navigate('/')
   }
 

@@ -38,7 +38,7 @@ export default function ProductCard({ product }) {
       {/* Image Container */}
       <div className="relative overflow-hidden bg-gray-200 h-64">
         <img
-          src={product.img || 'https://via.placeholder.com/300x300?text=Product'}
+          src={product.img || fallbackImage}
           alt={product.title}
           className="w-full h-full object-cover group-hover:scale-110 transition duration-300"
           onError={(event) => {

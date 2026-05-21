@@ -1,5 +1,7 @@
 import { useState, useEffect } from 'react'
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom'
+import { authAPI } from './services/api'
+import { useStore } from './store/store'
 import Navbar from './components/Navbar'
 import Footer from './components/Footer'
 import Home from './pages/Home'
@@ -13,14 +15,30 @@ import Dashboard from './pages/Dashboard'
 import OrderStatus from './pages/OrderStatus'
 import NotFound from './pages/NotFound'
 import SkinCycle from './pages/SkinCycle'
+import SkinAnalysis from './pages/SkinAnalysis'
+import MySkinReports from './pages/MySkinReports'
+import SkinReportDetail from './pages/SkinReportDetail'
+import DermatologistPanel from './pages/DermatologistPanel'
+import DermatologistReports from './pages/DermatologistReports'
 import { Toaster } from 'react-hot-toast'
 
 function App() {
   const [isLoading, setIsLoading] = useState(true)
+  const setUser = useStore((s) => s.setUser)
 
   useEffect(() => {
-    setIsLoading(false)
-  }, [])
+    const restoreSession = async () => {
+      try {
+        const { data } = await authAPI.getMe()
+        setUser(data)
+      } catch {
+        useStore.getState().logout()
+      } finally {
+        setIsLoading(false)
+      }
+    }
+    restoreSession()
+  }, [setUser])
 
   if (isLoading) {
     return (
@@ -46,6 +64,11 @@ function App() {
             <Route path="/dashboard" element={<Dashboard />} />
             <Route path="/order/:orderId" element={<OrderStatus />} />
             <Route path="/skincycle" element={<SkinCycle />} />
+            <Route path="/skin-analysis" element={<SkinAnalysis />} />
+            <Route path="/my-skin-reports" element={<MySkinReports />} />
+            <Route path="/my-skin-reports/:id" element={<SkinReportDetail />} />
+            <Route path="/dermatologist" element={<DermatologistPanel />} />
+            <Route path="/dermatologist/reports" element={<DermatologistReports />} />
             <Route path="*" element={<NotFound />} />
           </Routes>
         </main>

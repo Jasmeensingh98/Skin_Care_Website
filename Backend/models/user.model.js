@@ -9,6 +9,9 @@ const userSchema = mongoose.Schema(
     email: {
       type: String,
       require: true,
+      unique: true,
+      lowercase: true,
+      trim: true,
     },
     password: {
       type: String,
@@ -34,13 +37,13 @@ const userSchema = mongoose.Schema(
   }
 );
 
-userSchema.pre("save", async function name(next) {
+userSchema.pre("save", async function (next) {
   if (!this.isModified("password")) {
-    next();
+    return next();
   }
-  // for encryt
   const salt = await bcrypt.genSalt(10);
   this.password = await bcrypt.hash(this.password, salt);
+  next();
 });
 
 userSchema.methods.matchPassword = async function(enteredpassword){

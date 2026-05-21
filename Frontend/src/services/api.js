@@ -14,6 +14,7 @@ export const authAPI = {
   register: (data) => api.post('/auth/register', data),
   login: (data) => api.post('/auth/login', data),
   logout: () => api.get('/auth/logout'),
+  getMe: () => api.get('/auth/me'),
 }
 
 // Products APIs
@@ -49,6 +50,29 @@ export const userAPI = {
   getUserById: (id) => api.get(`/users/find/${id}`),
   updateUser: (id, data) => api.put(`/users/${id}`, data),
   deleteUser: (id) => api.delete(`/users/${id}`),
+}
+
+// Skin analysis & reports
+export const skinReportAPI = {
+  analyze: (formData) =>
+    api.post('/skin/analyze', formData, {
+      headers: { 'Content-Type': 'multipart/form-data' },
+    }),
+  createReport: (formData) =>
+    api.post('/skin/reports', formData, {
+      headers: { 'Content-Type': 'multipart/form-data' },
+    }),
+  getMyReports: () => api.get('/skin/reports/my'),
+  getReportById: (id) => api.get(`/skin/reports/${id}`),
+  getAllForDerm: (params) => api.get('/skin/reports/derm/all', { params }),
+  reviewReport: (id, data) => api.put(`/skin/reports/${id}/review`, data),
+}
+
+export const appointmentAPI = {
+  getAll: () => api.get('/appointments'),
+  getById: (id) => api.get(`/appointments/${id}`),
+  create: (data) => api.post('/appointments', data),
+  update: (id, data) => api.put(`/appointments/${id}`, data),
 }
 
 // Banners APIs

@@ -1,16 +1,24 @@
 import { useState } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
 import { useStore } from '../store/store'
+import { authAPI } from '../services/api'
 import { Menu, X, ShoppingCart, Heart, LogOut, User } from 'lucide-react'
 import Logo from './Logo'
+import toast from 'react-hot-toast'
 
 export default function Navbar() {
   const [isOpen, setIsOpen] = useState(false)
   const { cart, user, logout } = useStore()
   const navigate = useNavigate()
 
-  const handleLogout = () => {
+  const handleLogout = async () => {
+    try {
+      await authAPI.logout()
+    } catch {
+      // still clear local state
+    }
     logout()
+    toast.success('Logged out')
     navigate('/')
   }
 
@@ -35,6 +43,17 @@ export default function Navbar() {
             </Link>
             <Link to="/products" className="text-gray-700 hover:text-pink-600 transition">
               Products
+            </Link>
+            <Link to="/skin-analysis" className="text-gray-700 hover:text-pink-600 transition">
+              Skin Analysis
+            </Link>
+            {user && user.role !== 'dermatologist' && user.role !== 'admin' && (
+              <Link to="/my-skin-reports" className="text-gray-700 hover:text-pink-600 transition">
+                My Reports
+              </Link>
+            )}
+            <Link to="/dermatologist" className="text-violet-700 font-semibold hover:text-violet-900 transition">
+              Dermatologist
             </Link>
             <Link to="/skincycle" className="text-gray-700 hover:text-pink-600 transition">
               SkinCycle
@@ -101,6 +120,17 @@ export default function Navbar() {
             </Link>
             <Link to="/products" className="block py-2 text-gray-700 hover:text-pink-600">
               Products
+            </Link>
+            <Link to="/skin-analysis" className="block py-2 text-gray-700 hover:text-pink-600">
+              Skin Analysis
+            </Link>
+            {user && user.role !== 'dermatologist' && user.role !== 'admin' && (
+              <Link to="/my-skin-reports" className="block py-2 text-gray-700 hover:text-pink-600">
+                My Reports
+              </Link>
+            )}
+            <Link to="/dermatologist" className="block py-2 text-violet-700 font-semibold">
+              Dermatologist
             </Link>
             <Link to="/skincycle" className="block py-2 text-gray-700 hover:text-pink-600">
               SkinCycle

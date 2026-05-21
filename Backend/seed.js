@@ -566,15 +566,21 @@ async function seedDatabase() {
     await mongoose.connect(mongoUri);
     console.log('Connected to MongoDB');
 
-    const normalizedProducts = products.map((product) => ({
+    const normalizedProducts = products.map((product, index) => ({
       title: product.name,
       desc: product.description,
       img: product.image,
+      Brand: 'VULPINE',
       discountedPrice: product.price,
       originalNumber: product.originalPrice,
-      categories: product.category ? [product.category] : [],
+      categories: product.category ? ['skincare', product.category] : ['skincare'],
       skintype: Array.isArray(product.skinType) ? product.skinType : [],
+      concern: ['glow', 'hydration'],
       inStock: product.inStock ?? true,
+      whatinbox: '1x product, usage guide',
+      ratings: product.rating
+        ? [{ star: String(product.rating), name: 'Customer', comment: 'Great product!', postedBy: '' }]
+        : [],
     }));
 
     // Clear existing products
