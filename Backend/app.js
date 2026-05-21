@@ -1,4 +1,5 @@
 import express from  "express";
+import fs from "fs";
 import path from "path";
 import { fileURLToPath } from "url";
 import cors from "cors";
@@ -30,6 +31,8 @@ const app = express();
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
+const frontendDistPath = path.join(__dirname, "../Frontend/dist");
+const frontendIndexPath = path.join(frontendDistPath, "index.html");
 
 //JSON BODY
 app.use(express.json());
@@ -66,6 +69,9 @@ app.use(cors({
 //routes
 app.use("/productsimages", express.static(path.join(__dirname, "Productsimages")));
 app.use("/uploads", express.static(path.join(__dirname, "uploads")));
+if (fs.existsSync(frontendIndexPath)) {
+	app.use(express.static(frontendDistPath));
+}
 app.use("/api/auth",authRoute);
 app.use("/api/product",productRoute);
 app.use("/api/banners",bannerRoute);
@@ -76,11 +82,17 @@ app.use("/api/skin", skinRoute);
 app.use("/api/skin", skinReportRoute);
 app.use("/api/appointments", appointmentRoute);
 
-app.get("/", (req, res) => {
-	res.status(200).json({
-		message: "skin_analysis API is running",
+if (fs.existsSync(frontendIndexPath)) {
+	app.get(/^\/(?!api).*/, (req, res) => {
+		res.sendFile(frontendIndexPath);
 	});
-});
+} else {
+	app.get("/", (req, res) => {
+		res.status(200).json({
+			message: "skin_analysis API is running",
+		});
+	});
+}
 
 app.get("/api/auth/me", protect, getMe);
 app.post("/api/skin/reports", protect, upload.single("image"), createSkinReport);
