@@ -3,6 +3,7 @@ import { useParams, Link } from 'react-router-dom'
 import { orderAPI } from '../services/api'
 import toast from 'react-hot-toast'
 import { Package, Truck, CheckCircle, Clock, MapPin, Mail, Phone } from 'lucide-react'
+import { resolveBackendImageUrl } from '../utils/imageUrl'
 
 const statusSteps = [
   { id: 0, label: 'Pending', icon: Clock },
@@ -103,7 +104,7 @@ export default function OrderStatus() {
                 {order.products.map((product, idx) => (
                   <div key={idx} className="flex gap-4 pb-4 border-b last:border-0">
                     <img
-                      src={product.img || 'https://via.placeholder.com/80'}
+                      src={resolveBackendImageUrl(product.img, 'https://via.placeholder.com/80')}
                       alt={product.title}
                       className="w-20 h-20 object-cover rounded"
                     />

@@ -5,6 +5,7 @@ import { skinReportAPI } from '../services/api'
 import ProductCard from '../components/ProductCard'
 import toast from 'react-hot-toast'
 import { ArrowLeft, Stethoscope, ShieldCheck, UserRoundCheck } from 'lucide-react'
+import { resolveBackendImageUrl } from '../utils/imageUrl'
 
 export default function SkinReportDetail() {
   const { id } = useParams()
@@ -57,7 +58,7 @@ export default function SkinReportDetail() {
         <div className="bg-white rounded-2xl shadow-lg overflow-hidden mb-8">
           <div className="grid md:grid-cols-2">
             {report.imageUrl && (
-              <img src={report.imageUrl} alt="Skin scan" className="w-full h-64 md:h-full object-cover" />
+              <img src={resolveBackendImageUrl(report.imageUrl)} alt="Skin scan" className="w-full h-64 md:h-full object-cover" />
             )}
             <div className="p-6">
               <span

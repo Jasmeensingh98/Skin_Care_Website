@@ -2,6 +2,7 @@ import { Link } from 'react-router-dom'
 import { useStore } from '../store/store'
 import { Trash2, Plus, Minus, ArrowLeft } from 'lucide-react'
 import toast from 'react-hot-toast'
+import { resolveBackendImageUrl } from '../utils/imageUrl'
 
 export default function Cart() {
   const { cart, removeFromCart, updateCartItem, clearCart } = useStore()
@@ -57,7 +58,7 @@ export default function Cart() {
                     {/* Image */}
                     <div className="w-24 h-24 flex-shrink-0 bg-gray-200 rounded-lg overflow-hidden">
                       <img
-                        src={item.img || 'https://via.placeholder.com/100'}
+                        src={resolveBackendImageUrl(item.img, 'https://via.placeholder.com/100')}
                         alt={item.title}
                         className="w-full h-full object-cover"
                       />

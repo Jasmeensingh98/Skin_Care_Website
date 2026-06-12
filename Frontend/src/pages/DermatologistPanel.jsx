@@ -4,6 +4,7 @@ import { useStore } from '../store/store'
 import { skinReportAPI, productAPI, appointmentAPI } from '../services/api'
 import toast from 'react-hot-toast'
 import { Stethoscope, User, Clock, CheckCircle, Send, CalendarDays, ClipboardList } from 'lucide-react'
+import { resolveBackendImageUrl } from '../utils/imageUrl'
 
 const normalizeText = (value) => String(value || '').toLowerCase()
 
@@ -319,7 +320,7 @@ export default function DermatologistPanel() {
                     >
                       <div className="flex gap-3">
                         {r.imageUrl && (
-                          <img src={r.imageUrl} alt="" className="w-12 h-12 rounded object-cover" />
+                          <img src={resolveBackendImageUrl(r.imageUrl)} alt="" className="w-12 h-12 rounded object-cover" />
                         )}
                         <div className="flex-1 min-w-0">
                           <p className="font-semibold text-sm truncate">{r.userName || 'Customer'}</p>
@@ -352,7 +353,7 @@ export default function DermatologistPanel() {
                     <div className="flex gap-4 mb-6">
                       {selected.imageUrl && (
                         <img
-                          src={selected.imageUrl}
+                          src={resolveBackendImageUrl(selected.imageUrl)}
                           alt="Patient"
                           className="w-32 h-32 rounded-xl object-cover"
                         />

@@ -1,5 +1,6 @@
 import { useEffect, useMemo, useState } from 'react'
 import { Camera, Calendar, Shield, ShieldAlert, Sun } from 'lucide-react'
+import { resolveBackendImageUrl } from '../utils/imageUrl'
 
 const DEFAULT_LOCATION = {
   label: 'New Delhi, IN',
@@ -96,7 +97,7 @@ const SPONSORED_PRODUCTS = [
     name: 'Cica Barrier Rescue Cream',
     category: 'moisturizer',
     tags: ['redness', 'dryness', 'sensitive'],
-    image: '/productsimages/Vulpine.png',
+    image: 'Vulpine.png',
     safetyTags: ['fragrance-free', 'alcohol-free'],
   },
   {
@@ -104,7 +105,7 @@ const SPONSORED_PRODUCTS = [
     name: 'Niacinamide Balance Serum',
     category: 'serums',
     tags: ['oiliness', 'acne'],
-    image: '/productsimages/Vulpine.png',
+    image: 'Vulpine.png',
     safetyTags: ['non-comedogenic'],
   },
   {
@@ -112,7 +113,7 @@ const SPONSORED_PRODUCTS = [
     name: 'Hydration Gel + SPF 50',
     category: 'sun-care',
     tags: ['dryness', 'redness', 'sensitive'],
-    image: '/productsimages/Vulpine.png',
+    image: 'Vulpine.png',
     safetyTags: ['reef-safe', 'mineral'],
   },
 ]
@@ -685,7 +686,7 @@ export default function SkinCycle() {
                                     sponsoredProducts.map((product) => (
                                       <div key={product.id} className="border rounded-lg p-4 flex gap-3">
                                         <img
-                                          src={product.image}
+                                          src={resolveBackendImageUrl(product.image)}
                                           alt={product.name}
                                           className="h-16 w-16 rounded-md object-cover"
                                         />

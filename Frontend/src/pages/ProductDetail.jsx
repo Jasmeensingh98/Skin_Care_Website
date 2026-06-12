@@ -4,6 +4,7 @@ import { useStore } from '../store/store'
 import { productAPI } from '../services/api'
 import toast from 'react-hot-toast'
 import { Star, Heart, ShoppingCart, ArrowLeft } from 'lucide-react'
+import { resolveBackendImageUrl } from '../utils/imageUrl'
 
 export default function ProductDetail() {
   const { id } = useParams()
@@ -15,7 +16,7 @@ export default function ProductDetail() {
     star: 5,
     comment: '',
   })
-  const fallbackImage = '/productsimages/Vulpine.png'
+  const fallbackImage = resolveBackendImageUrl('Vulpine.png')
 
   const isWishlisted = wishlist.some(item => item._id === id)
 
@@ -98,7 +99,7 @@ export default function ProductDetail() {
           <div className="bg-white rounded-lg shadow p-6">
             <div className="relative bg-gray-200 rounded-lg h-96 flex items-center justify-center overflow-hidden">
               <img
-                src={product.img || 'https://via.placeholder.com/500'}
+                src={resolveBackendImageUrl(product.img, fallbackImage)}
                 alt={product.title}
                 className="max-h-full max-w-full object-contain"
                 onError={(event) => {

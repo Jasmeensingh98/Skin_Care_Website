@@ -4,6 +4,7 @@ import { useStore } from '../store/store'
 import { skinReportAPI } from '../services/api'
 import { FileText, Clock, CheckCircle } from 'lucide-react'
 import toast from 'react-hot-toast'
+import { resolveBackendImageUrl } from '../utils/imageUrl'
 
 export default function MySkinReports() {
   const { user } = useStore()
@@ -61,7 +62,7 @@ export default function MySkinReports() {
                 <div className="flex gap-4 items-center">
                   {report.imageUrl && (
                     <img
-                      src={report.imageUrl}
+                      src={resolveBackendImageUrl(report.imageUrl)}
                       alt=""
                       className="w-16 h-16 rounded-lg object-cover"
                     />

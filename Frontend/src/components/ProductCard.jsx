@@ -3,11 +3,12 @@ import { Heart, ShoppingCart, Star } from 'lucide-react'
 import { useStore } from '../store/store'
 import toast from 'react-hot-toast'
 import { useState } from 'react'
+import { resolveBackendImageUrl } from '../utils/imageUrl'
 
 export default function ProductCard({ product }) {
   const { addToCart, addToWishlist, wishlist } = useStore()
   const [isLoading, setIsLoading] = useState(false)
-  const fallbackImage = '/productsimages/Vulpine.png'
+  const fallbackImage = resolveBackendImageUrl('Vulpine.png')
 
   const isWishlisted = wishlist.some(item => item._id === product._id)
   const discount = product.originalNumber ? Math.round(((product.originalNumber - product.discountedPrice) / product.originalNumber) * 100) : 0
@@ -38,7 +39,7 @@ export default function ProductCard({ product }) {
       {/* Image Container */}
       <div className="relative overflow-hidden bg-gray-200 h-64">
         <img
-          src={product.img || fallbackImage}
+          src={resolveBackendImageUrl(product.img, fallbackImage)}
           alt={product.title}
           className="w-full h-full object-cover group-hover:scale-110 transition duration-300"
           onError={(event) => {

@@ -1,5 +1,6 @@
 import { Link } from 'react-router-dom'
 import { ArrowRight, Sparkles } from 'lucide-react'
+import { resolveBackendImageUrl } from '../utils/imageUrl'
 
 const GRADIENTS = {
   coral: 'from-rose-500 via-orange-400 to-amber-400',
@@ -29,7 +30,7 @@ export default function ProductAdBanner({
       <div className={`absolute inset-0 bg-gradient-to-br ${gradientClass} opacity-95 group-hover:opacity-100 transition-opacity`} />
       {image && (
         <div className="absolute right-0 top-0 bottom-0 w-1/2 md:w-2/5 opacity-20 group-hover:opacity-30 transition-opacity">
-          <img src={image} alt="" className="h-full w-full object-cover" />
+          <img src={resolveBackendImageUrl(image)} alt="" className="h-full w-full object-cover" />
         </div>
       )}
       <div className="relative z-10 text-white">

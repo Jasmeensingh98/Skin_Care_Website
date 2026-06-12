@@ -4,6 +4,7 @@ import { useStore } from '../store/store'
 import { orderAPI, paymentAPI } from '../services/api'
 import toast from 'react-hot-toast'
 import { ArrowLeft } from 'lucide-react'
+import { resolveBackendImageUrl } from '../utils/imageUrl'
 
 export default function Checkout() {
   const navigate = useNavigate()
@@ -286,7 +287,7 @@ export default function Checkout() {
                 {cart.map((item) => (
                   <div key={item._id} className="flex gap-3 pb-4 border-b">
                     <img
-                      src={item.img || 'https://via.placeholder.com/60'}
+                      src={resolveBackendImageUrl(item.img, 'https://via.placeholder.com/60')}
                       alt={item.title}
                       className="w-16 h-16 object-cover rounded"
                     />
