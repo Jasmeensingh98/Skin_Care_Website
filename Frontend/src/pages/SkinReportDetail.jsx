@@ -74,6 +74,12 @@ export default function SkinReportDetail() {
               {report.aiSummary && (
                 <p className="text-gray-700 mt-4">{report.aiSummary}</p>
               )}
+              {report.skinType && (
+                <div className="mt-3">
+                  <p className="text-xs text-gray-500">Predicted skin type</p>
+                  <p className="font-semibold text-lg capitalize">{report.skinType}</p>
+                </div>
+              )}
               <div className="grid grid-cols-2 gap-2 mt-4">
                 {Object.entries(report.metrics || {}).map(([k, v]) => (
                   <div key={k} className="bg-gray-50 rounded p-2 text-sm">

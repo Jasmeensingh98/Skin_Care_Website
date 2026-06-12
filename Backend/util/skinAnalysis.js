@@ -55,9 +55,27 @@ export const buildSkinReport = (metrics) => {
   if (metrics.redness >= 50) summaryParts.push("redness/sensitivity");
   if (metrics.oiliness >= 50) summaryParts.push("oil imbalance");
   if (metrics.dryness >= 50) summaryParts.push("dehydration signs");
+  // Determine a simple skin type heuristic from metrics
+  let skinType = "unknown";
+  const oil = metrics.oiliness || 0;
+  const dry = metrics.dryness || 0;
+  const red = metrics.redness || 0;
+
+  if (oil >= 50 && dry >= 40) {
+    skinType = "combination";
+  } else if (oil >= 50) {
+    skinType = "oily";
+  } else if (dry >= 50) {
+    skinType = "dry";
+  } else if (red >= 50) {
+    skinType = "sensitive";
+  } else if (oil < 50 && dry < 50 && red < 40 && metrics.acne < 40) {
+    skinType = "normal";
+  }
 
   return {
     metrics,
+    skinType,
     blockedIngredients: Array.from(blockedIngredients),
     recoveryFocus: Array.from(recoveryFocus),
     recoveryPlan: {

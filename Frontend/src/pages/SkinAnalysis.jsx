@@ -632,6 +632,12 @@ export default function SkinAnalysis() {
                   <p className="text-sm text-gray-700 bg-violet-50 p-3 rounded-lg mb-4">{analysis.aiSummary}</p>
 
                 )}
+                {analysis.skinType && (
+                  <div className="mb-3">
+                    <p className="text-xs text-gray-500">Predicted skin type</p>
+                    <p className="font-semibold text-lg capitalize">{analysis.skinType}</p>
+                  </div>
+                )}
 
                 <div className="grid grid-cols-2 gap-3 mb-4">
 

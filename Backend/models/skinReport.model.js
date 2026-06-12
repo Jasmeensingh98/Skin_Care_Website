@@ -31,6 +31,11 @@ const skinReportSchema = new mongoose.Schema(
       pm: [String],
     },
     aiSummary: String,
+    skinType: {
+      type: String,
+      enum: ["oily", "dry", "combination", "sensitive", "normal", "unknown"],
+      default: "unknown",
+    },
     status: {
       type: String,
       enum: ["pending_review", "reviewed"],

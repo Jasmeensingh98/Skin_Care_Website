@@ -152,6 +152,7 @@ const createSkinReport = asyncHandler(async (req, res) => {
     userEmail: req.user.email,
     imageUrl,
     metrics: analysis.metrics,
+    skinType: analysis.skinType || 'unknown',
     blockedIngredients: analysis.blockedIngredients,
     recoveryFocus: analysis.recoveryFocus,
     recoveryPlan: analysis.recoveryPlan,
