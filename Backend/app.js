@@ -39,32 +39,49 @@ app.use(express.json());
 
 //cookie parser
 app.use(cookieParser());
-//cors
-const envAllowedOrigins = (process.env.CORS_ORIGIN || "")
-	.split(",")
-	.map((origin) => origin.trim())
-	.filter(Boolean);
 
-const allowedOrigins = [
-	"http://localhost:3000",
-	"http://localhost:3001",
-	...envAllowedOrigins,
-];
+//JSON BODY
+app.use(express.json());
+
+//cookie parser
+app.use(cookieParser());
+
+// CORS
+app.use(cors({
+  origin: true,
+  credentials: true,
+}));
 
 const upload = multer({
-	storage: multer.memoryStorage(),
-	limits: { fileSize: 5 * 1024 * 1024 },
+  storage: multer.memoryStorage(),
+  limits: { fileSize: 5 * 1024 * 1024 },
 });
+//cors
+// const envAllowedOrigins = (process.env.CORS_ORIGIN || "")
+// 	.split(",")
+// 	.map((origin) => origin.trim())
+// 	.filter(Boolean);
 
-app.use(cors({
-	origin: (origin, callback) => {
-		if (!origin || allowedOrigins.includes(origin)) {
-			return callback(null, true);
-		}
-		return callback(new Error("Not allowed by CORS"));
-	},
-	credentials: true,
-}));
+// const allowedOrigins = [
+// 	"http://localhost:3000",
+// 	"http://localhost:3001",
+// 	...envAllowedOrigins,
+// ];
+
+// const upload = multer({
+// 	storage: multer.memoryStorage(),
+// 	limits: { fileSize: 5 * 1024 * 1024 },
+// });
+
+// app.use(cors({
+// 	origin: (origin, callback) => {
+// 		if (!origin || allowedOrigins.includes(origin)) {
+// 			return callback(null, true);
+// 		}
+// 		return callback(new Error("Not allowed by CORS"));
+// 	},
+// 	credentials: true,
+// }));
 
 //routes
 app.use("/productsimages", express.static(path.join(__dirname, "Productsimages")));
