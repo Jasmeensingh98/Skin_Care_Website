@@ -15,7 +15,7 @@ const sendWelcomeEmail = async () => {
 
   if (users.length > 0) {
     for (let user of users) {
-      const templatePath = path.join(__dirname, "../templates/Welcome.ejs");
+      const templatePath = path.join(__dirname, "../templates/welcome.ejs");
 
       ejs.renderFile(templatePath, { name: user.name }, async (err, data) => {
         if (err) {
